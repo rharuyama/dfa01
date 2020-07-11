@@ -1,87 +1,88 @@
 
 #include <stdio.h>
-#include <stdlib.h> // to include malloc
+#include <stdlib.h> /* to include malloc */ 
+#include "stack.c"
 
-typedef struct Token Token;
+/* typedef struct Node Node; */
 
-struct Token{
-  int data;
-  Token* next;
-};
+/* struct Node{ */
+/*   int data; */
+/*   Node* next; */
+/* }; */
 
-void Push(Token** ptop, int newData);
-void Pop(Token** ptop);
-void Display(Token* top);
-void in_s1(Token** top);
-void in_s2(Token** ptop);
+/* void Push(Node** pstack, int newData); */
+/* void Pop(Node** pstack); */
+/* void Display(Node* stack); */
+void in_s1(Node** pstack);
+void in_s2(Node** pstack);
   
-Token* top = NULL;
+Stack stack;
 int accepted = 2;
 
 int main(){
-  Push(&top, 1);
-  Push(&top, 1);
-  Push(&top, 0);
-  Push(&top, 1);
-  Push(&top, 1);
-  Push(&top, 1);
-  Push(&top, 0);
-  Push(&top, 0);
-  Display(top);
+  Push(&stack, 1);
+  Push(&stack, 1);
+  Push(&stack, 0);
+  Push(&stack, 1);
+  Push(&stack, 1);
+  Push(&stack, 1);
+  Push(&stack, 0);
+  Push(&stack, 0);
+  Display(stack);
 
-  in_s1(&top);
+  in_s1(&stack);
   printf("accepted? : %d\n", accepted);
 }
 
-void Push(Token** ptop, int newData){ // replace top with *ptop
-  Token* newToken = malloc(sizeof(Token));
-  newToken->data = newData;
-  newToken->next = *ptop;
-  *ptop = newToken; // change value of top
-}
+/* void Push(Node** pstack, int newData){ // replace stackwith *pstack*/
+/*   Node* newNode = malloc(sizeof(Node)); */
+/*   newNode->data = newData; */
+/*   newNode->next = *pstack; */
+/*   *pstack= newNode; // change value of stack*/
+/* } */
 
-void Pop(Token** ptop){
-  *ptop = (*ptop)->next;
-}
+/* void Pop(Node** pstack){ */
+/*   *pstack= (*pstack)->next; */
+/* } */
 
-void Display(Token* top){
-  Token* cur = top;
-  printf("top ->");
-  while(cur){
-    printf(" %d", cur->data);
-    cur = cur->next;
-  }
-  printf("\n");
-}
+/* void Display(Node* stack){ */
+/*   Node* cur = stack; */
+/*   printf("stack->"); */
+/*   while(cur){ */
+/*     printf(" %d", cur->data); */
+/*     cur = cur->next; */
+/*   } */
+/*   printf("\n"); */
+/* } */
 
-void in_s1(Token** ptop){
+void in_s1(Node** pstack){
   printf("in_s1 called : ");
-  Display(*ptop);
-  if(*ptop == NULL){
+  Display(*pstack);
+  if(*pstack== NULL){
     accepted = 1;
-  }else if((*ptop)->data == 1){
-    Pop(ptop);
-    in_s1(ptop);
-  }else if((*ptop)->data == 0){
-    Pop(ptop);
-    in_s2(ptop);
+  }else if((*pstack)->data == 1){
+    Pop(pstack);
+    in_s1(pstack);
+  }else if((*pstack)->data == 0){
+    Pop(pstack);
+    in_s2(pstack);
   }else{
     printf("Error -- in_s1");
   }
 }
 
 
-void in_s2(Token** ptop){
+void in_s2(Node** pstack){
   printf("in_s2 called : ");
-  Display(*ptop);
-  if(*ptop == NULL){
+  Display(*pstack);
+  if(*pstack== NULL){
     accepted = 0;
-  }else if((*ptop)->data == 1){
-    Pop(ptop);
-    in_s2(ptop);
-  }else if((*ptop)->data == 0){
-    Pop(ptop);
-    in_s1(ptop);
+  }else if((*pstack)->data == 1){
+    Pop(pstack);
+    in_s2(pstack);
+  }else if((*pstack)->data == 0){
+    Pop(pstack);
+    in_s1(pstack);
   }else{
     printf("Error -- in_s2");
   }
