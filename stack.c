@@ -15,13 +15,6 @@ void Pop(Node** ptop);
 void Display(Node* top);
 void Init(Node** ptop);
 
-/* int main(){ */
-/*   Push(&top, 33); */
-/*   Push(&top, 108); */
-/*   Push(&top, 22); */
-/*   Display(top); */
-/* } */
-
 void Push(Node** ptop, int newData){ // replace top with *ptop
   Node* newNode = malloc(sizeof(Node));
   newNode->data = newData;
